@@ -4,9 +4,17 @@ import {Link} from 'react-router-dom';
 
 const Header: React.FC = () => {
     return (
-        <header style={headerStyle}>
-            <Link to='/'>App</Link>|<Link to='about'>About</Link>
-        </header>
+        <nav className='navbar is-primary container'>
+            <div className='navbar-brand'>
+                <Link className='navbar-item' to='/'>App</Link>
+                <Link className='navbar-item' to='about'>About</Link>                           
+                <div className='navbar-burger'>
+                    <span></span>  
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
     );
 }
 
