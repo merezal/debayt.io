@@ -12,15 +12,15 @@ const Header: React.FC = () => {
 
 let headerStyle = {
     display: 'flex',
-    padding: '10px auto',
-    margin: '10px auto',
-    fontSize: '5evh',
-    maxWidth: '20%',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    background: '#5dd9ce',
+    flexBasis: 'fit-content',
+    flexDirection: 'row' as 'row',
+    padding: '0',
+    margin: '0',
+    fontSize: '10px',
+    alignContent: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'grey',
     color: 'black',
-    textAlign: 'center' as 'center',
     borderRadius: '50px',
     textDecoration: 'none',
 }
