@@ -1,11 +1,15 @@
 import React from 'react';
 import './App.css';
+import {BrowserRouter as Router} from 'react-router-dom';
+import Header from './components/Header';
 
 const App: React.FC = () => {
   return (
+    <Router>
     <div className="App">
-      <h1>Application</h1>
+      <Header />
     </div>
+    </Router>
   );
 }
 
