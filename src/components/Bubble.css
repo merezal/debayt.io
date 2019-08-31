@@ -1,0 +1,12 @@
+.Thought{
+    text-align: center;
+}
+.Thought:hover{
+    cursor: pointer;
+}
+.modalBlock{
+    position: absolute;
+    background-Color: black;
+    height: 100vh;
+    width: 100vw;
+}
