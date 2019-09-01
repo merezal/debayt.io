@@ -5,17 +5,13 @@ import Header from './components/Header';
 import Engine from './components/Engine';
 import About from './components/pages/About';
 
-
 const App: React.FC = () => {
-  let state: object={
-    running: 'true',
-  }
   return (
     <Router>
     <Route exact path='/' >
       <div className="App">
         <Header />
-        <Engine status={state}/>
+            <Engine />
       </div>
     </Route>
     <Route exact path='/about' component={About}></Route>
