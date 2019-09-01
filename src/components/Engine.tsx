@@ -5,22 +5,21 @@ interface EngineState{
     running: string;
 }
 
-class Engine extends React.Component<any>{
-    render(){
-        //Content:
-        //This will be the object that holds an argument, as well as tracking id.
-        let Content: object={
-            id: "x",
-            argument: "Here's the argument"
-        }
+let Engine: React.FC = () => {
 
-        console.log(this.props.status);
-        return(
-            <div className="Container">
-                    <Bubble content={Content} />
-            </div> 
-        );  
+    //Content:
+    //This will be the object that holds an argument, as well as tracking id.
+    let Content = {
+        id: "x",
+        content: "Here's the argument"
     }
+
+    return (
+       // console.log(this.props);
+            <div className="Container">
+                    <Bubble content={Content.content} />
+            </div>     
+    );
 }
 
 export default Engine;
