@@ -13,36 +13,28 @@ class Bubble extends React.Component<{ content: string }, {content:string, modal
         super(props);
         this.state={
             content: props.content,
-            modalState: false,
+            modalState: false, 
         };
-      }
-      editContent = () => {
-              console.log("Visible: ", this.state.modalState)
-              this.setState({ modalState: !this.state.modalState })
-      }
-      render(){
-
-          let toggleVisibility = (bool: boolean) => {
-              if (bool) {
-                console.log("Rendering styles")
-                  return {
-               
-                }
-            }
-            else{
-                return{
-              
-                }
-            }
-        }
-        return(
+    }
+    /*FIXME*/
+    toggleModal = (event: any) => {
+        this.setState({ modalState: true });
+    }
+    hideModal = (event: any) => {
+        this.setState({ modalState: false });
+    }
+    render() {
+        console.log("Rendering ", this.state.modalState, " Visible");
+        return (
             <div className='Thought'>
 
                 {/* This is the text bubble that you want to change */}
-                <Button variant="contained" style={{ textTransform: 'none' }} onClick={this.editContent}>{this.state.content}</Button>
+                <Button variant="contained" style={{ textTransform: 'none' }} onClick={this.toggleModal}>{this.state.content}</Button>
 
                 {/* This is the [hidden] modal backdrop, where you input the text*/}
-                <Modal changeCont={this.changeContent.bind(this)} content={this.state.content} style={toggleVisibility(this.state.modalState) as React.CSSProperties} />
+                {/* Boolean visible value determines visibility */}
+                <Modal visible={this.state.modalState} changeCont={this.changeContent.bind(this)} content={this.state.content} hide={this.hideModal.bind(this)} />
+                
             </div>
         );
     }
