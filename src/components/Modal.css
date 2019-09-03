@@ -22,9 +22,6 @@
     float: right;
     right: 20px;
 }
-textarea {
-    border-radius: 7px;
-}
-textarea:focus{
-    border: 2px solid white;
+#filled-textarea {
+    color: whitesmoke;
 }

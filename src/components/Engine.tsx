@@ -16,9 +16,9 @@ let Engine: React.FC = () => {
 
     return (
        // console.log(this.props);
-            <div className="Container">
-                    <Bubble content={Content.content} />
-            </div>     
+        <div className="Container">
+                <Bubble content={Content.content} />
+        </div>     
     );
 }
 

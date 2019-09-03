@@ -21,6 +21,7 @@ class Bubble extends React.Component<{ content: string }, {content:string, modal
         this.setState({ modalState: true });
     }
     hideModal = (event: any) => {
+        console.log("FALSE", this.state.modalState)
         this.setState({ modalState: false });
     }
     render() {
@@ -41,7 +42,6 @@ class Bubble extends React.Component<{ content: string }, {content:string, modal
     public changeContent = (val: string) =>{
       console.log("Val: ", this.props.content, " to ", val);
         this.setState({ content: val });
-        this.render();
     }
 }
 
