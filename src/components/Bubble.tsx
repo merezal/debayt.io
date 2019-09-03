@@ -1,7 +1,6 @@
 import React from 'react';
 import './Bubble.css';
 import Button from '@material-ui/core/Button';
-import Modal from './Modal';
 
 interface ContMan{
     content: string,
@@ -32,9 +31,7 @@ class Bubble extends React.Component<{ content: string }, {content:string, modal
                 {/* This is the text bubble that you want to change */}
                 <Button variant="contained" style={{ textTransform: 'none' }} onClick={this.toggleModal}>{this.state.content}</Button>
 
-                {/* This is the [hidden] modal backdrop, where you input the text*/}
-                {/* Boolean visible value determines visibility */}
-                <Modal visible={this.state.modalState} changeCont={this.changeContent.bind(this)} content={this.state.content} hide={this.hideModal.bind(this)} />
+
                 
             </div>
         );
