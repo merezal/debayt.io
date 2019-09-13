@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './Engine.css'
 import Bubble from './Bubble';
 import Modal from './Modal';
 import Uuid from 'uuid';
@@ -51,6 +52,12 @@ let Engine: React.FC = (modal_state) => {
         console.log("Updated", Update);
     }
 
+    /*FIX ME called on click, add content entry to Content with createContent... FIX refresh with upTEMP*/
+    function addContentEntry(e: any) {
+        createContent("foo");
+        upTEMP(TEMP_updates + 1)
+    }
+
     /* When targeter is fired it changes spawns Modal or hides */
     function targeter(target_id: string) {
         setTID(target_id);
@@ -74,12 +81,24 @@ let Engine: React.FC = (modal_state) => {
         return Elements;
     }
 
+    function determine_button() {
+        if (!visibility) {
+            console.log("primary")
+            return ("is-primary");
+        }
+        else {
+            console.log("loading")
+            return ("is-primary is-loading");
+        }
+    }
+
     return (
         //console.log(this.props);
         //<Bubble content={Content.content} />
         <div className="Container">
-            { renderBubbles(Content) }
-            { visibility ? < Modal target_uuid={targetID} content_array={Content} changeContent={changeContent} close={closeModal}/>:null}
+            {renderBubbles(Content)}
+            <button id="newItem" className={"button " + determine_button()} onClick={addContentEntry} >+</button>
+            {visibility ? < Modal target_uuid={targetID} content_array={Content} changeContent={changeContent} close={closeModal} /> : null}
         </div>     
     );
 }
