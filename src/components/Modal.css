@@ -1,0 +1,24 @@
+#modalBlock {
+    position: absolute;
+    padding-top: 75px;
+    margin: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(17, 16, 16, 0.85);
+    filter: blur(0px);
+    cursor:initial;
+}
+.BubbleInput {
+    position: relative;
+    top: 40%;
+    display: block;
+}
+#closeModal{
+    position: relative;
+    float: right;
+    right: 20px;
+}
+#filled-textarea {
+    color: whitesmoke;
+}

@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
-
+/* Component for the navigation between pages */
 const Header: React.FC = () => {
     return (
         <nav className='navbar is-primary container'>
@@ -17,7 +17,7 @@ const Header: React.FC = () => {
         </nav>
     );
 }
-
+/*
 let headerStyle = {
     display: 'flex',
     flexBasis: 'fit-content',
@@ -32,6 +32,6 @@ let headerStyle = {
     borderRadius: '50px',
     textDecoration: 'none',
 }
-
+*/
 
 export default Header;
