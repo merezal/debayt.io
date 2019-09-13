@@ -16,6 +16,9 @@ let Engine: React.FC = (modal_state) => {
     //Target Bubble ID passed to Modal
     const [targetID, setTID]=useState("");
 
+    //TEMPORARY needed to rerender after each changeContent call
+    const [TEMP_updates, upTEMP]=useState(0)
+
     //This will be the object that holds an argument, as well as tracking id.
     const [Content, accessContent] = useState([{
         id: Uuid.v4(),
@@ -42,8 +45,10 @@ let Engine: React.FC = (modal_state) => {
         let Update = Content;
         Update[Z].text=b;
         accessContent(Update);
+        //Without this Engine will not rerender until modal close
+        upTEMP(TEMP_updates + 1)
+
         console.log("Updated", Update);
-        return;
     }
 
     /* When targeter is fired it changes spawns Modal or hides */
@@ -63,7 +68,7 @@ let Engine: React.FC = (modal_state) => {
         //createContent("Hooray");
         //createContent("Hoo");
         let Elements = [];
-        for (let i = 0; i < Content.length; i++) {
+        for (let i = 0; i < Content.length; i++) { 
             Elements.push(<Bubble key={Content[i].id} content={Content[i]} targeter={(targeter)} />)
         }
         return Elements;

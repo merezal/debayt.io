@@ -26,7 +26,8 @@ class Modal extends React.Component<{ close: any, target_uuid: string, content_a
     /* TextField change triggers update to Engine Content[] */
     private handleText = (event: React.FormEvent<HTMLInputElement>) => {
         let x = event.currentTarget.getElementsByTagName("textarea")[0].value;
-        return this.props.changeContent(x);
+        this.props.changeContent(x);
+        this.setState({ text: x });
         /* TODO make live change to button text, rerendering modal? */
     }
     public toggleVis = (event: React.MouseEvent<HTMLElement>) => {
@@ -37,7 +38,7 @@ class Modal extends React.Component<{ close: any, target_uuid: string, content_a
                 <div id="modalBlock"  >
                     <Fab color="secondary" size="small" id="closeModal" onClick={this.toggleVis.bind(this)}>X</Fab>
                     <span className="BubbleInput">
-                        <TextField id="filled-textarea" margin="normal" multiline label="Enter Message" variant="filled" defaultValue={this.state.text} onInput={this.handleText} autoFocus />
+                        <TextField id="filled-textarea" margin="normal" multiline label="Enter Message" variant="filled" value={this.state.text} onInput={this.handleText} autoFocus />
                     </span>
                 </div>
             );
