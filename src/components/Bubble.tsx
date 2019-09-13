@@ -1,28 +1,41 @@
 import React from 'react';
 import './Bubble.css';
 import Button from '@material-ui/core/Button';
-import Modal from './Modal';
-
-interface ContMan{
+/*
+interface Bubble{
     content: string,
     modalState: boolean,
 }
+*/
+interface Bubble_Content {
+    id: string,
+    text: string,
+    visible: boolean,
+}
+interface Bubble_Props{
+    content: Bubble_Content,
+    targeter: any
+}
 
-class Bubble extends React.Component<{ content: string }, {content:string, modalState: boolean}> {
-      constructor(props: any){
+class Bubble extends React.Component<{ content: Bubble_Content, targeter: any }, { id: string, text: string, modalState: boolean }> {
+    constructor(props: any){
         super(props);
         this.state={
-            content: props.content,
-            modalState: false, 
+            id: props.content.id,
+            text: props.content.text,
+            modalState: props.content.visible, 
         };
     }
+    /*
+    componentDidUpdate(prevProps: Bubble_Props){
+        console.log(prevProps.content.text, "===", this.state.text)
+        if(prevProps.content.text!==this.props.content.text){
+            this.setState({text: this.props.content.text})
+        }
+    } !SOMEHOW MUST RERENDER WHEN CONTENT UPDATES!  */
     /*FIXME*/
     toggleModal = (event: any) => {
-        this.setState({ modalState: true });
-    }
-    hideModal = (event: any) => {
-        console.log("FALSE", this.state.modalState)
-        this.setState({ modalState: false });
+        this.props.targeter( this.props.content.id );
     }
     render() {
         console.log("Rendering ", this.state.modalState, " Visible");
@@ -30,19 +43,11 @@ class Bubble extends React.Component<{ content: string }, {content:string, modal
             <div className='Thought'>
 
                 {/* This is the text bubble that you want to change */}
-                <Button variant="contained" style={{ textTransform: 'none' }} onClick={this.toggleModal}>{this.state.content}</Button>
-
-                {/* This is the [hidden] modal backdrop, where you input the text*/}
-                {/* Boolean visible value determines visibility */}
-                <Modal visible={this.state.modalState} changeCont={this.changeContent.bind(this)} content={this.state.content} hide={this.hideModal.bind(this)} />
-                
+                <Button variant="contained" style={{ textTransform: 'none' }} onClick={this.toggleModal}>{this.props.content.text}</Button>
             </div>
         );
     }
-    public changeContent = (val: string) =>{
-      console.log("Val: ", this.props.content, " to ", val);
-        this.setState({ content: val });
-    }
+
 }
 
 export default Bubble;

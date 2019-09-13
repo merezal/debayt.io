@@ -8,11 +8,8 @@ import About from './components/pages/About';
 const App: React.FC = () => {
   return (
     <Router>
-    <Route exact path='/' >
-      <div className="App">
-        <Header />
-            <Engine />
-      </div>
+    <Header />
+    <Route exact path='/' component={Engine}>
     </Route>
     <Route exact path='/about' component={About}></Route>
     </Router>

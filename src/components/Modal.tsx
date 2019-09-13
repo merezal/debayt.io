@@ -3,48 +3,45 @@ import './Modal.css';
 import Fab from '@material-ui/core/Fab';
 import TextField from '@material-ui/core/TextField';
 
-interface ModalSettings {
-    content: string,
-    value: string,
+interface Bubble_Content {
+    id: string,
+    text: string,
+    visible: boolean,
 }
 
-class Modal extends React.Component<{ visible: boolean, changeCont: any, content: string , hide: any},{ content: string }>{
+class Modal extends React.Component<{ close: any, target_uuid: string, content_array: [Bubble_Content], changeContent: any }, { id_target: string, text: string }>{
     constructor(props: any){
         super(props);
         this.state = {
-            content: props.content,
+            id_target: props.target_uuid,
+            text: this.getBubble(),
         };
     }
-    public handleText = (event: React.FormEvent<HTMLInputElement>) => {
+    /* Fetches the Bubble_Content, for the given id, from the Content[] array in Engine.*/
+    private getBubble = () => {
+        let T = this.props.content_array.filter(todo=>todo.id===this.props.target_uuid);
+        console.log("FETCHED_BUB: ", T[0] );
+        return T[0].text;
+    }
+    /* TextField change triggers update to Engine Content[] */
+    private handleText = (event: React.FormEvent<HTMLInputElement>) => {
         let x = event.currentTarget.getElementsByTagName("textarea")[0].value;
-        console.log("SENDING: ", x);
-        /* Target base input in Materialui styling */
-        this.props.changeCont(x);
-        /* TODO make request to update server */
-
+        this.props.changeContent(x);
+        this.setState({ text: x });
+        /* TODO make live change to button text, rerendering modal? */
     }
     public toggleVis = (event: React.MouseEvent<HTMLElement>) => {
-        console.log("Toggling Visibility", event.target);
-        this.props.hide(event);
+        this.props.close();
     }
     render() {
-        if (this.props.visible) {
-            console.log("MODAL");
             return (
                 <div id="modalBlock"  >
                     <Fab color="secondary" size="small" id="closeModal" onClick={this.toggleVis.bind(this)}>X</Fab>
                     <span className="BubbleInput">
-                        <TextField id="filled-textarea" margin="normal" multiline label="Enter Message" variant="filled" value={this.props.content} onInput={this.handleText} autoFocus />
+                        <TextField id="filled-textarea" margin="normal" multiline label="Enter Message" variant="filled" value={this.state.text} onInput={this.handleText} autoFocus />
                     </span>
                 </div>
             );
-        }
-        else {
-            return (
-                <div id="modalBlock" style={{ visibility: 'hidden' }}>
-                </div>
-            );            
-        }
     }
 }
 
