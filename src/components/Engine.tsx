@@ -52,10 +52,10 @@ let Engine: React.FC = (modal_state) => {
         console.log("Updated", Update);
     }
 
-    /*FIX ME called on click, add content entry to Content with createContent... FIX refresh with upTEMP*/
+    /* Called on click, add content entry to Content with createContent... */
     function addContentEntry(e: any) {
-        createContent("foo");
-        upTEMP(TEMP_updates + 1)
+        createContent(" ");
+        targeter(Content[Content.length-1].id);
     }
 
     /* When targeter is fired it changes spawns Modal or hides */
