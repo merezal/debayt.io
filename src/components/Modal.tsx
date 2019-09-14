@@ -31,18 +31,18 @@ class Modal extends React.Component<{ close: any, target_uuid: string, content_a
         this.setState({ text: x });
         /* TODO make live change to button text, rerendering modal? */
     }
-    public toggleVis = (event: React.MouseEvent<HTMLElement>) => {
+    public toggleVis = (event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => {
         this.props.close();
     }
     render() {
-        return (
-            <div id="modalBlock"  >
-                <Fab color="secondary" size="small" id="closeModal" onClick={this.toggleVis.bind(this)}>X</Fab>
-                <span className="BubbleInput">
-                    <TextField id="filled-textarea" className="modalInput" margin="normal" multiline label="Enter Message" variant="filled" value={this.state.text} onInput={this.handleText} autoFocus />
-                </span>
-            </div>
-        );
+            return (
+                <div id="modalBlock"  >
+                    <Fab color="secondary" size="small" id="closeModal" onClick={this.toggleVis.bind(this)}>X</Fab>
+                    <span className="BubbleInput">
+                        <TextField id="filled-textarea" className="modalInput" margin="normal" multiline label="Enter Message" variant="filled" value={this.state.text} onInput={this.handleText} onKeyUp={(e) => { if (e.key == "Escape") { this.toggleVis(e) }}} autoFocus />
+                    </span>
+                </div>
+            );
     }
 }
 

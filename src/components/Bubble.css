@@ -1,9 +1,7 @@
 .Thought{
     text-align: center;
 }
-.Thought:hover{
-    cursor: pointer;
-}
+
 .modalBlock{
     position: absolute;
     background-Color: black;
