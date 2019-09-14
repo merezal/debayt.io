@@ -13,12 +13,15 @@
     position: relative;
     top: 40%;
     display: block;
+    text-align: center;
 }
 #closeModal{
     position: relative;
     float: right;
     right: 20px;
 }
-#filled-textarea {
-    color: whitesmoke;
+.modalInput{
+    background: whitesmoke;
+    color: black;
+    border-radius: 7px
 }

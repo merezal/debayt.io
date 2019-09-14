@@ -2,6 +2,7 @@ import React from 'react';
 import './Modal.css';
 import Fab from '@material-ui/core/Fab';
 import TextField from '@material-ui/core/TextField';
+import { makeStyles } from '@material-ui/styles';
 
 interface Bubble_Content {
     id: string,
@@ -34,14 +35,14 @@ class Modal extends React.Component<{ close: any, target_uuid: string, content_a
         this.props.close();
     }
     render() {
-            return (
-                <div id="modalBlock"  >
-                    <Fab color="secondary" size="small" id="closeModal" onClick={this.toggleVis.bind(this)}>X</Fab>
-                    <span className="BubbleInput">
-                        <TextField id="filled-textarea" margin="normal" multiline label="Enter Message" variant="filled" value={this.state.text} onInput={this.handleText} autoFocus />
-                    </span>
-                </div>
-            );
+        return (
+            <div id="modalBlock"  >
+                <Fab color="secondary" size="small" id="closeModal" onClick={this.toggleVis.bind(this)}>X</Fab>
+                <span className="BubbleInput">
+                    <TextField id="filled-textarea" className="modalInput" margin="normal" multiline label="Enter Message" variant="filled" value={this.state.text} onInput={this.handleText} autoFocus />
+                </span>
+            </div>
+        );
     }
 }
 
