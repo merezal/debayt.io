@@ -2,12 +2,11 @@ import React from 'react';
 import './Modal.css';
 import Fab from '@material-ui/core/Fab';
 import TextField from '@material-ui/core/TextField';
-import { makeStyles } from '@material-ui/styles';
 
 interface Bubble_Content {
     id: string,
     text: string,
-    visible: boolean,
+    type: string
 }
 
 class Modal extends React.Component<{ close: any, target_uuid: string, content_array: [Bubble_Content], changeContent: any }, { id_target: string, text: string }>{

@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import './Engine.css'
 import Bubble from './Bubble';
 import Modal from './Modal';
+import Argument from './Argument';
 import RowControl from './RowControl';
 import Uuid from 'uuid';
-import { number } from 'prop-types';
 
 interface Bubble_Content {
     id: string,
     text: string,
-    visible: boolean,
+    type: string,
 }
 
 let Engine: React.FC = (modal_state) => {
@@ -22,13 +22,14 @@ let Engine: React.FC = (modal_state) => {
     //TEMPORARY needed to rerender after each changeContent call
     const [TEMP_updates, upTEMP]=useState(0);
 
+    //Amount of rows
     const [rows, changeRows]=useState(1);
 
     //This will be the object that holds an argument, as well as tracking id.
     const [Content, accessContent] = useState([{
         id: Uuid.v4(),
         text: "Here's the argument",
-        visible: false,
+        type: "premise",
     }] as [Bubble_Content])
 
     //This function will be used to update Content, updating it with 'a'
@@ -40,7 +41,7 @@ let Engine: React.FC = (modal_state) => {
         else {
             insert = "Here's the argument";
         }
-        Content.push({ id: Uuid.v4(), text: insert, visible: false, })
+        Content.push({ id: Uuid.v4(), text: insert, type: "premise", })
         return;
     }
     
@@ -87,11 +88,9 @@ let Engine: React.FC = (modal_state) => {
 
     function addButtonClass() {
         if (!visibility) {
-            console.log("primary")
             return ("is-primary");
         }
         else {
-            console.log("loading")
             return ("is-primary is-loading");
         }
     }
@@ -100,9 +99,10 @@ let Engine: React.FC = (modal_state) => {
         //console.log(this.props);
         //<Bubble content={Content.content} />
         <div id="engineArea">
-            { renderBubbles(Content) }
-            <RowControl count={rows} adjust={changeRows}/>
+            {/* renderBubbles(Content) */}
+            <Argument rowCount={rows}/>
             <button id="newItem" className={"button " + addButtonClass()} onClick={addContentEntry} >+</button>
+            <RowControl count={rows} adjust={changeRows} />
             {visibility ? < Modal target_uuid={targetID} content_array={Content} changeContent={changeContent} close={closeModal} /> : null}
         </div>     
     );

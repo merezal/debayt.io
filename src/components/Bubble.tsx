@@ -10,7 +10,7 @@ interface Bubble{
 interface Bubble_Content {
     id: string,
     text: string,
-    visible: boolean,
+    type: string,
 }
 interface Bubble_Props{
     content: Bubble_Content,
