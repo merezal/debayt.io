@@ -101,7 +101,7 @@ let Engine: React.FC = (modal_state) => {
         //<Bubble content={Content.content} />
         <div id="engineArea">
             { renderBubbles(Content) }
-            <RowControl count={rows}/>
+            <RowControl count={rows} adjust={changeRows}/>
             <button id="newItem" className={"button " + addButtonClass()} onClick={addContentEntry} >+</button>
             {visibility ? < Modal target_uuid={targetID} content_array={Content} changeContent={changeContent} close={closeModal} /> : null}
         </div>     

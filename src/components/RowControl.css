@@ -1,19 +1,24 @@
-#rowControl{
+#rowControl {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 2em;
+    width: 1em;
+    user-select: none;
+    color: black
 }
-#rowControl > button{
+#rowControl > a{
     background: none;
+    color: black;
     border: none;
-    width: 2em;
     outline-style: none;
-
+    text-align: center;
 }
-#rowControl > button:active{
-    background: red;
-}
-#rowControl > button:focus{
+#rowControl > a:focus{
     outline: none;
+}
+#rowInc:active {
+    color: green;
+}
+#rowDec:active {
+    color: red;
 }
