@@ -39,7 +39,7 @@ class Modal extends React.Component<{ close: any, target_uuid: string, content_a
                 <div id="modalBlock"  >
                     <Fab color="secondary" size="small" id="closeModal" onClick={this.toggleVis.bind(this)}>X</Fab>
                     <span className="BubbleInput">
-                        <TextField id="filled-textarea" className="modalInput" margin="normal" multiline label="Enter Message" variant="filled" value={this.state.text} onInput={this.handleText} onKeyUp={(e) => { if (e.key == "Escape") { this.toggleVis(e) }}} autoFocus />
+                        <TextField id="filled-textarea" className="modalInput" multiline label="Enter Message" variant="filled" value={this.state.text} onInput={this.handleText} onKeyUp={(e) => { if (e.key == "Escape") { this.toggleVis(e) }}} autoFocus />
                     </span>
                 </div>
             );

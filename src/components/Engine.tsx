@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import './Engine.css'
 import Bubble from './Bubble';
 import Modal from './Modal';
+import RowControl from './RowControl';
 import Uuid from 'uuid';
+import { number } from 'prop-types';
 
 interface Bubble_Content {
     id: string,
@@ -18,7 +20,9 @@ let Engine: React.FC = (modal_state) => {
     const [targetID, setTID]=useState("");
 
     //TEMPORARY needed to rerender after each changeContent call
-    const [TEMP_updates, upTEMP]=useState(0)
+    const [TEMP_updates, upTEMP]=useState(0);
+
+    const [rows, changeRows]=useState(1);
 
     //This will be the object that holds an argument, as well as tracking id.
     const [Content, accessContent] = useState([{
@@ -61,7 +65,7 @@ let Engine: React.FC = (modal_state) => {
     /* When targeter is fired it changes spawns Modal or hides */
     function targeter(target_id: string) {
         setTID(target_id);
-        console.log("Set target", targetID)
+        console.log("Set target", targetID);
         setVis(true);
     }
     
@@ -81,7 +85,7 @@ let Engine: React.FC = (modal_state) => {
         return Elements;
     }
 
-    function determine_button() {
+    function addButtonClass() {
         if (!visibility) {
             console.log("primary")
             return ("is-primary");
@@ -95,9 +99,10 @@ let Engine: React.FC = (modal_state) => {
     return (
         //console.log(this.props);
         //<Bubble content={Content.content} />
-        <div className="Container">
-            {renderBubbles(Content)}
-            <button id="newItem" className={"button " + determine_button()} onClick={addContentEntry} >+</button>
+        <div id="engineArea">
+            { renderBubbles(Content) }
+            <RowControl count={rows}/>
+            <button id="newItem" className={"button " + addButtonClass()} onClick={addContentEntry} >+</button>
             {visibility ? < Modal target_uuid={targetID} content_array={Content} changeContent={changeContent} close={closeModal} /> : null}
         </div>     
     );

@@ -1,0 +1,19 @@
+#rowControl{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 2em;
+}
+#rowControl > button{
+    background: none;
+    border: none;
+    width: 2em;
+    outline-style: none;
+
+}
+#rowControl > button:active{
+    background: red;
+}
+#rowControl > button:focus{
+    outline: none;
+}

@@ -9,7 +9,7 @@ const App: React.FC = () => {
   return (
     <Router>
     <Header />
-    <Route exact path='/' component={Engine}>
+    <Route exact path='/' component={Engine} >
     </Route>
     <Route exact path='/about' component={About}></Route>
     </Router>
