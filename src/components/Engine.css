@@ -4,3 +4,6 @@
     bottom: 7%;
     right: 5%;
 }
+.Blur{
+    filter: blur(1px);
+}

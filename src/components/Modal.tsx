@@ -21,6 +21,11 @@ let Modal: React.FC<propTypes> = (props) => {
     const[id_target,changeID]=useState(props.target_uuid);
     const[text,changeText]=useState(getBubble());
     
+    let card=document.querySelector(".card");
+    if(card){
+        card.classList.add("Blur")
+    }
+
     /* Fetches the Bubble_Content, for the given id, from the Content[] array in Engine.*/
     function getBubble(): string{
         let new_text= ""
@@ -38,9 +43,11 @@ let Modal: React.FC<propTypes> = (props) => {
         let x = event.currentTarget.getElementsByTagName("textarea")[0].value;
         changeText(x);
         props.changeContent(x, id_target);
-        /* TODO make live change to button text, rerendering modal? */
     }
     function toggleVis(event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>){
+        if(card){
+            card.classList.remove("Blur")
+        }
         props.close();
     }
     return (
