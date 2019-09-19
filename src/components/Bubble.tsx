@@ -1,53 +1,33 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './Bubble.css';
 import Button from '@material-ui/core/Button';
-/*
-interface Bubble{
-    content: string,
-    modalState: boolean,
-}
-*/
+
 interface Bubble_Content {
     id: string,
     text: string,
     type: string,
 }
-interface Bubble_Props{
+
+interface propTypes{
     content: Bubble_Content,
-    targeter: any
+    targeter: Function,
 }
 
-class Bubble extends React.Component<{ content: Bubble_Content, targeter: any }, { id: string, text: string, modalState: boolean }> {
-    constructor(props: any){
-        super(props);
-        this.state={
-            id: props.content.id,
-            text: props.content.text,
-            modalState: props.content.visible, 
-        };
-    }
-    /*
-    componentDidUpdate(prevProps: Bubble_Props){
-        console.log(prevProps.content.text, "===", this.state.text)
-        if(prevProps.content.text!==this.props.content.text){
-            this.setState({text: this.props.content.text})
-        }
-    } !SOMEHOW MUST RERENDER WHEN CONTENT UPDATES!  */
-    /*FIXME*/
-    toggleModal = (event: any) => {
-        this.props.targeter( this.props.content.id );
-    }
-    render() {
-        console.log("Rendering ", this.state.modalState, " Visible");
-        return (
-            <div className='Thought'>
+/* Container for user content, changes through modal on click */
+let Bubble: React.FC<propTypes> = (props) => {
+    const[id, editID] = useState(props.content.id)
+    const[text, editText]=useState(props.content.text)
 
-                {/* This is the text bubble that you want to change */}
-                <Button variant="contained" style={{ textTransform: 'none' }} onClick={this.toggleModal}>{this.props.content.text}</Button>
-            </div>
-        );
+    /* Triggers modal and passes click Bubble id */
+    function toggleModal(event: any) {
+        props.targeter( props.content.id );
     }
-
+    return (
+        <div className='Thought'>
+            {/* This is the text bubble that you want to change */}
+            <Button variant="contained" style={{ textTransform: 'none' }} onClick={toggleModal}>{props.content.text}</Button>
+        </div>
+    );
 }
 
 export default Bubble;

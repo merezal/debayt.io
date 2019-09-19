@@ -11,8 +11,22 @@ interface Bubble_Content {
     text: string,
     type: string,
 }
+let TEST: Bubble_Content[][]=[[
+    {id: Uuid.v4(),
+    text: "Here's the argument",
+    type: "premise",},
+    {id: Uuid.v4(),
+    text: "argument",
+    type: "premise",},
+],[    {id: Uuid.v4(),
+    text: "Here's the fudge",
+    type: "premise",},
+    {id: Uuid.v4(),
+    text: "Dargument",
+    type: "premise",}],]
 
-let Engine: React.FC = (modal_state) => {
+
+let Engine: React.FC = (props) => {
 
     //Visibility of Modal
     const [visibility, setVis]=useState(false);
@@ -22,18 +36,14 @@ let Engine: React.FC = (modal_state) => {
     //TEMPORARY needed to rerender after each changeContent call
     const [TEMP_updates, upTEMP]=useState(0);
 
-    //Amount of rows
-    const [rows, changeRows]=useState(1);
-
     //This will be the object that holds an argument, as well as tracking id.
-    const [Content, accessContent] = useState([{
-        id: Uuid.v4(),
-        text: "Here's the argument",
-        type: "premise",
-    }] as [Bubble_Content])
+    const [Content, accessContent] = useState(TEST)
+
+    //Amount of rows
+    const [rows, changeRows]=useState(Content.length);
 
     //This function will be used to update Content, updating it with 'a'
-    function createContent(a: string) {
+    /* function createContent(a: string) {
         let insert;
         if (a) {
             insert = a;
@@ -43,25 +53,37 @@ let Engine: React.FC = (modal_state) => {
         }
         Content.push({ id: Uuid.v4(), text: insert, type: "premise", })
         return;
-    }
+    } */
     
     /* FIX ME updates Content based on id and new string*/
-    function changeContent(b: string) {
-        let Z = Content.findIndex(e=>e.id===targetID);
-        let Update = Content;
-        Update[Z].text=b;
-        accessContent(Update);
-        //Without this Engine will not rerender until modal close
-        upTEMP(TEMP_updates + 1)
+    function changeContent(txt: string, id: string) {
+        let Update = Content.map(r=>{return r.map(
+            x=>{
+                if(x.id===id){
+                    x.text=txt;
+                    return x;
+                }
+                else{
+                    return x;
+                }
+            }
+        )})
 
-        console.log("Updated", Update);
+
+        accessContent(Update as [[Bubble_Content]]);
+        //Without this Engine will not rerender until modal close
+        //upTEMP(TEMP_updates + 1)
+
     }
 
+
+
+    /*FIXME*/
     /* Called on click, add content entry to Content with createContent... */
-    function addContentEntry(e: any) {
+/*     function addContentEntry(e: any) {
         createContent(" ");
         targeter(Content[Content.length-1].id);
-    }
+    } */
 
     /* When targeter is fired it changes spawns Modal or hides */
     function targeter(target_id: string) {
@@ -81,7 +103,7 @@ let Engine: React.FC = (modal_state) => {
         //createContent("Hoo");
         let Elements = [];
         for (let i = 0; i < Content.length; i++) { 
-            Elements.push(<Bubble key={Content[i].id} content={Content[i]} targeter={(targeter)} />)
+            Elements.push(<Bubble key={Content[i].id} content={Content[i]} targeter={targeter} />)
         }
         return Elements;
     }
@@ -94,15 +116,11 @@ let Engine: React.FC = (modal_state) => {
             return ("is-primary is-loading");
         }
     }
-
     return (
-        //console.log(this.props);
-        //<Bubble content={Content.content} />
         <div id="engineArea">
-            {/* renderBubbles(Content) */}
-            <Argument rowCount={rows}/>
-            <button id="newItem" className={"button " + addButtonClass()} onClick={addContentEntry} >+</button>
-            <RowControl count={rows} adjust={changeRows} />
+            <Argument rowCount={rows} loadContent={Content} targeter={targeter}/>
+{/*             <button id="newItem" className={"button " + addButtonClass()} onClick={addContentEntry} >+</button>
+ */}            <RowControl count={rows} adjust={changeRows} />
             {visibility ? < Modal target_uuid={targetID} content_array={Content} changeContent={changeContent} close={closeModal} /> : null}
         </div>     
     );
