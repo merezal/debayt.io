@@ -21,10 +21,8 @@ let Modal: React.FC<propTypes> = (props) => {
     const[id_target,changeID]=useState(props.target_uuid);
     const[text,changeText]=useState(getBubble());
     
-    let card=document.querySelector(".card");
-    if(card){
-        card.classList.add("Blur")
-    }
+    let blur=[document.querySelector(".card"),document.querySelector("#rowControl")];
+    blur.forEach(c=>{if(c){c.classList.add("Blur")}});
 
     /* Fetches the Bubble_Content, for the given id, from the Content[] array in Engine.*/
     function getBubble(): string{
@@ -36,7 +34,7 @@ let Modal: React.FC<propTypes> = (props) => {
                 }
             }
         ))
-        return new_text
+        return new_text;
     }
     /* TextField change triggers update to Engine Content[] */
     function handleText(event: React.FormEvent<HTMLInputElement>){
@@ -45,9 +43,7 @@ let Modal: React.FC<propTypes> = (props) => {
         props.changeContent(x, id_target);
     }
     function toggleVis(event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>){
-        if(card){
-            card.classList.remove("Blur")
-        }
+        blur.forEach(c=>{if(c){c.classList.remove("Blur")}});
         props.close();
     }
     return (
