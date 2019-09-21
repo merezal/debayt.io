@@ -24,3 +24,7 @@
     color: black;
     border-radius: 7px
 }
+#newBubble{
+    float: right;
+    right: 40%;
+}

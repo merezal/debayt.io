@@ -15,17 +15,27 @@ interface Bubble_Content {
 /* This component is rendered for each argument row and contains bubbles */
 let Row: React.FC<propTypes> = (props) => {
 
+    const [RowContent, accessRow] = useState(props.row_content);
+
+
+
     /* Renders Bubbles in each row */
     function renderRow(){
-        let U=[];
-        if(props.row_content){
-            for(let r=0;r<props.row_content.length;r++){
-                U.push(<Bubble key={"bbl"+r} content={props.row_content[r]} targeter={props.targeter}/>)
+        let U = [];
+        if (RowContent) {
+            for (let r = 0; r < RowContent.length; r++) {
+                U.push(<Bubble key={"bbl" + r} content={RowContent[r]} targeter={props.targeter} />)
             }
         }
+        
         console.log("ROW", U)
         return U;
     }
+
+    /* TODO get Bubble position with .getBoundingClientRect & connect svg between bubbles
+     <svg width="" height=""><line x1="" y1="" x2="" y2="" stroke="black"/></svg>
+     
+     */
 
     return(
             <div className="card-content row">

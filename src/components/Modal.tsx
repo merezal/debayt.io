@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import './Modal.css';
 import Fab from '@material-ui/core/Fab';
 import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button'
 
 interface Bubble_Content {
     id: string,
@@ -13,6 +14,7 @@ interface propTypes{
     target_uuid: string, 
     content_array: Bubble_Content[][], 
     changeContent: Function, 
+    createContent: Function,
 }
 
 /* Textinput for editing userinput, currently rendered in Engine */
@@ -20,7 +22,8 @@ let Modal: React.FC<propTypes> = (props) => {
     
     const[id_target,changeID]=useState(props.target_uuid);
     const[text,changeText]=useState(getBubble());
-    
+
+    /* Nice little blur on content and row control */
     let blur=[document.querySelector(".card"),document.querySelector("#rowControl")];
     blur.forEach(c=>{if(c){c.classList.add("Blur")}});
 
@@ -46,12 +49,23 @@ let Modal: React.FC<propTypes> = (props) => {
         blur.forEach(c=>{if(c){c.classList.remove("Blur")}});
         props.close();
     }
+
+    function handleNew(event: React.MouseEvent<HTMLElement>) {
+        props.createContent(id_target);
+        toggleVis(event);
+    }
     return (
         <div id="modalBlock"  >
             <Fab color="secondary" size="small" id="closeModal" onClick={toggleVis}>X</Fab>
             <span className="BubbleInput">
-                <TextField id="filled-textarea" className="modalInput" multiline label="Enter Message" variant="filled" value={text} onInput={handleText} onKeyUp={(e) => { if (e.key == "Escape") { toggleVis(e) }}} autoFocus />
+                <TextField id="filled-textarea" className="modalInput" multiline label="Assertion:" variant="filled" value={text} onInput={handleText} onKeyUp={(e) => { if (e.key == "Escape") { toggleVis(e) } }} autoFocus />
+
             </span>
+            <span>
+
+                <Button id="newBubble" className="BubbleInput" color="primary" size="small" onClick={handleNew} >-></Button>
+            </span>
+
         </div>
     );
 }
