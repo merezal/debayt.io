@@ -1,0 +1,27 @@
+#rowControl {
+    display: flex;
+    position: absolute;
+    bottom: 5%;
+    left: 7%;
+    flex-direction: column;
+    align-items: center;
+    width: 1em;
+    user-select: none;
+    color: black
+}
+#rowControl > a{
+    background: none;
+    color: black;
+    border: none;
+    outline-style: none;
+    text-align: center;
+}
+#rowControl > a:focus{
+    outline: none;
+}
+#rowInc:active {
+    color: green;
+}
+#rowDec:active {
+    color: red;
+}

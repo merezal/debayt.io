@@ -1,49 +1,73 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './Modal.css';
 import Fab from '@material-ui/core/Fab';
 import TextField from '@material-ui/core/TextField';
-import { makeStyles } from '@material-ui/styles';
+import Button from '@material-ui/core/Button'
 
 interface Bubble_Content {
     id: string,
     text: string,
-    visible: boolean,
+    type: string
+}
+interface propTypes{
+    close: Function, 
+    target_uuid: string, 
+    content_array: Bubble_Content[][], 
+    changeContent: Function, 
+    createContent: Function,
 }
 
-class Modal extends React.Component<{ close: any, target_uuid: string, content_array: [Bubble_Content], changeContent: any }, { id_target: string, text: string }>{
-    constructor(props: any){
-        super(props);
-        this.state = {
-            id_target: props.target_uuid,
-            text: this.getBubble(),
-        };
-    }
+/* Textinput for editing userinput, currently rendered in Engine */
+let Modal: React.FC<propTypes> = (props) => {
+    
+    const[id_target,changeID]=useState(props.target_uuid);
+    const[text,changeText]=useState(getBubble());
+
+    /* Nice little blur on content and row control */
+    let blur=[document.querySelector(".card"),document.querySelector("#rowControl")];
+    blur.forEach(c=>{if(c){c.classList.add("Blur")}});
+
     /* Fetches the Bubble_Content, for the given id, from the Content[] array in Engine.*/
-    private getBubble = () => {
-        let T = this.props.content_array.filter(todo=>todo.id===this.props.target_uuid);
-        console.log("FETCHED_BUB: ", T[0] );
-        return T[0].text;
+    function getBubble(): string{
+        let new_text= ""
+        props.content_array.map(r=>r.map(
+            x=>{
+                if(x.id===props.target_uuid){
+                    new_text=x.text;
+                }
+            }
+        ))
+        return new_text;
     }
     /* TextField change triggers update to Engine Content[] */
-    private handleText = (event: React.FormEvent<HTMLInputElement>) => {
+    function handleText(event: React.FormEvent<HTMLInputElement>){
         let x = event.currentTarget.getElementsByTagName("textarea")[0].value;
-        this.props.changeContent(x);
-        this.setState({ text: x });
-        /* TODO make live change to button text, rerendering modal? */
+        changeText(x);
+        props.changeContent(x, id_target);
     }
-    public toggleVis = (event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => {
-        this.props.close();
+    function toggleVis(event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>){
+        blur.forEach(c=>{if(c){c.classList.remove("Blur")}});
+        props.close();
     }
-    render() {
-            return (
-                <div id="modalBlock"  >
-                    <Fab color="secondary" size="small" id="closeModal" onClick={this.toggleVis.bind(this)}>X</Fab>
-                    <span className="BubbleInput">
-                        <TextField id="filled-textarea" className="modalInput" margin="normal" multiline label="Enter Message" variant="filled" value={this.state.text} onInput={this.handleText} onKeyUp={(e) => { if (e.key == "Escape") { this.toggleVis(e) }}} autoFocus />
-                    </span>
-                </div>
-            );
+
+    function handleNew(event: React.MouseEvent<HTMLElement>) {
+        props.createContent(id_target);
+        toggleVis(event);
     }
+    return (
+        <div id="modalBlock"  >
+            <Fab color="secondary" size="small" id="closeModal" onClick={toggleVis}>X</Fab>
+            <span className="BubbleInput">
+                <TextField id="filled-textarea" className="modalInput" multiline label="Assertion:" variant="filled" value={text} onInput={handleText} onKeyUp={(e) => { if (e.key == "Escape") { toggleVis(e) } }} autoFocus />
+
+            </span>
+            <span>
+
+                <Button id="newBubble" className="BubbleInput" color="primary" size="small" onClick={handleNew} >-></Button>
+            </span>
+
+        </div>
+    );
 }
 
 export default Modal;
