@@ -15,9 +15,13 @@ let Argument: React.FC<propTypes> = (props) => {
     
     const [data, editData] = useState(props.loadContent)
 
+    if (props.loadContent && props.loadContent!==data) {
+        editData(props.loadContent)
+    }
     if(!data){
         editData(undefined)
     }
+
 
     //If argument contents are passed in pass data
     /* if(props.loadContent && data!==props.loadContent){

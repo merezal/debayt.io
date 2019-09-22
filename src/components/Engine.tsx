@@ -38,11 +38,7 @@ let Engine: React.FC = (props) => {
     // Amount of rows
     const [rows, changeRows]=useState(Content.length);
 
-    /* creates new content within the row of bubble id in precedent 
-     * FIXME createContent does not work if text is first edited, regardless if modal is closed and reopened
-     
-     
-     */
+    /* creates new content within the row of bubble id in precedent */
     function createContent(precedent: string) {
         let j
         for (let r = 0; r < Content.length; r++) {
@@ -65,7 +61,7 @@ let Engine: React.FC = (props) => {
         }
     }
     
-    /* updates Content based on id and new string*/
+    /* updates Content based on id and new string */
     function changeContent(txt: string, id: string) {
         let Update = Content.map(r=>{return r.map(
             x=>{

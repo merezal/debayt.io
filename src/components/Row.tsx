@@ -15,9 +15,11 @@ interface Bubble_Content {
 /* This component is rendered for each argument row and contains bubbles */
 let Row: React.FC<propTypes> = (props) => {
 
-    const [RowContent, accessRow] = useState(props.row_content);
+    const [RowContent, accessRow] = useState();
 
-
+    if (props.row_content !== RowContent) {
+        accessRow(props.row_content)
+    }
 
     /* Renders Bubbles in each row */
     function renderRow(){
@@ -28,7 +30,6 @@ let Row: React.FC<propTypes> = (props) => {
             }
         }
         
-        console.log("ROW", U)
         return U;
     }
 
