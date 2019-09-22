@@ -34,7 +34,6 @@ let Engine: React.FC = (props) => {
     const [targetID, setTID]=useState("");
     // This will be the object that holds an argument, as well as tracking id.
     const [Content, accessContent] = useState(TEST)
-    console.log("CONTENT", Content)
     // Amount of rows
     const [rows, changeRows]=useState(Content.length);
 
@@ -56,8 +55,6 @@ let Engine: React.FC = (props) => {
             let Update = Content;
             Update[j].push({ id: new_id, text: "Enter Content", type: "premise", })
             accessContent(Update);
-            console.log("CREATED", Content[j])
-            //targeter(new_id);      
         }
     }
     
@@ -81,7 +78,7 @@ let Engine: React.FC = (props) => {
     /* When targeter is fired it changes spawns Modal or hides */
     function targeter(target_id: string) {
         setTID(target_id);
-        console.log("Set target", targetID);
+        console.log("Set target:", target_id);
         setVis(true);
     }
     

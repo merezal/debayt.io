@@ -61,11 +61,7 @@ let Modal: React.FC<propTypes> = (props) => {
                 <TextField id="filled-textarea" className="modalInput" multiline label="Assertion:" variant="filled" value={text} onInput={handleText} onKeyUp={(e) => { if (e.key == "Escape") { toggleVis(e) } }} autoFocus />
 
             </span>
-            <span>
-
-                <Button id="newBubble" className="BubbleInput" color="primary" size="small" onClick={handleNew} >-></Button>
-            </span>
-
+            <Button id="newBubble" className="BubbleInput" color="primary" size="small" onClick={handleNew} >-></Button>
         </div>
     );
 }

@@ -22,9 +22,10 @@
 .modalInput{
     background: white;
     color: black;
-    border-radius: 7px
+    border-radius: 7px;
+    width: 30%;
 }
 #newBubble{
     float: right;
-    right: 40%;
+    right: 35%;
 }

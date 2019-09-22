@@ -23,7 +23,7 @@ let Bubble: React.FC<propTypes> = (props) => {
         props.targeter( props.content.id );
     }
     return (
-        <div className='Thought'>
+        <div id={props.content.id} className='Thought'>
             {/* This is the text bubble that you want to change */}
             <Button variant="contained" style={{ textTransform: 'none' }} onClick={toggleModal}>{props.content.text}</Button>
         </div>
